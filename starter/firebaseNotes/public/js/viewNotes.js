@@ -25,7 +25,7 @@ const renderData = (data) => {
     destination.innerHTML = "";
     for (let noteKey in data) {
         const note = data[noteKey];
-        destination.innerHTML += createCard(note);
+        destination.appendChild(createCardDynamic(note));
     }
 }
 
@@ -38,6 +38,27 @@ const createCard  = (note) => {
                     <div class="card-content">
                         ${note.text}
                     </div> 
+                    <footer class="card-footer">
+                        <a id="${noteId}" href="#" class="card-footer-item"
+                        onclick="deleteNote('${noteId}')">
+                            Delete
+                        </a>
+                    </footer>
                 </div>
             </div>` ;
-}
+};
+
+const createCardDynamic = (note) => {
+    const element = document.createElement('div');
+    element.classList.add("column");
+    element.classList.add("is-one-quarter");
+    element.innerHTML = `<div class="card"> 
+                            <header class="card-header">
+                                <p class="card-header-title">${note.title}</p>
+                            </header> 
+                        <div class="card-content">
+                            ${note.text}
+                        </div> 
+                    </div>`;
+    return element;
+};
